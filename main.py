@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from sqlalchemy.orm import declarative_base
 
+from auth import authentication
 from db import models
 from db.database import engine
 from router import user
@@ -15,6 +16,7 @@ def on_startup():
 
 
 app.include_router(user.router)
+app.include_router(authentication.router)
 
 
 @app.get('/hello')
