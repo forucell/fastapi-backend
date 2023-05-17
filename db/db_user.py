@@ -38,3 +38,7 @@ def get_user_by_username(db: Session, username: str):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with username {username} not found')
     return user
+
+
+def get_all_users(db: Session):
+    return db.query(DbUser).all()
