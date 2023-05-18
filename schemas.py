@@ -1,20 +1,33 @@
-from pydantic import BaseModel
 from datetime import datetime
+from typing import List
+
+from pydantic import BaseModel
+from pydantic.networks import EmailStr
 
 
-class UserBase(BaseModel):
+class User(BaseModel):
     username: str
-    email: str
+    email: EmailStr
+    parent_id: int | None = None
+
+
+class UserBase(User):
     password: str
 
 
-class UserDisplay(BaseModel):
+class UserChildBase(BaseModel):
     id: int
     username: str
     email: str
-    created_time: datetime
-    updated_time: datetime | None = None
 
+    class Config:
+        orm_mode = True
+
+
+class UserDisplay(User):
+    id: str
+    created_time: datetime
+    children: List[UserChildBase] = []
 
     class Config:
         orm_mode = True

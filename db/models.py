@@ -1,8 +1,12 @@
+from datetime import datetime
+
 from sqlalchemy import Column
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Integer, String, DateTime
 
 from db.database import Base
-from datetime import datetime
+
 
 class DbBase(Base):
     __abstract__ = True
@@ -16,3 +20,6 @@ class DbUser(DbBase):
     username = Column(String)
     email = Column(String)
     password = Column(String)
+
+    parent_id = Column(Integer, ForeignKey("user.id"), nullable=True)
+    children = relationship("DbUser")
