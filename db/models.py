@@ -8,11 +8,15 @@ from sqlalchemy.sql.sqltypes import Integer, String, DateTime
 from db.database import Base
 
 
-class DbBase(Base):
+class DbTime(Base):
     __abstract__ = True
-    id = Column(Integer, primary_key=True, index=True)
     created_time = Column(DateTime, default=datetime.now)
     updated_time = Column(DateTime, onupdate=datetime.now)
+
+
+class DbBase(DbTime):
+    __abstract__ = True
+    id = Column(Integer, primary_key=True, index=True)
 
 
 class DbUser(DbBase):
