@@ -27,3 +27,12 @@ class DbUser(DbBase):
 
     parent_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     children = relationship("DbUser")
+
+    profiles = relationship('DbProfile', back_populates='user')
+
+
+class DbProfile(DbBase):
+    __tablename__ = 'profile'
+
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship("DbUser", back_populates='profiles')
