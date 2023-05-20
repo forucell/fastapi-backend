@@ -4,6 +4,8 @@ from typing import List
 from pydantic import BaseModel
 from pydantic.networks import EmailStr
 
+from enums import ProfileType
+
 
 class User(BaseModel):
     username: str
@@ -28,6 +30,19 @@ class UserDisplay(User):
     id: str
     created_time: datetime
     children: List[UserChildBase] = []
+
+    class Config:
+        orm_mode = True
+
+
+class ProfileBase(BaseModel):
+    type: ProfileType | None = None
+
+
+class ProfileDisplay(ProfileBase):
+    id: int
+    user_id: int
+    created_time: datetime
 
     class Config:
         orm_mode = True
