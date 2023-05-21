@@ -23,9 +23,9 @@ def create_profile(request: ProfileBase, db: Session = Depends(get_db),
 
 # Update profile
 @router.put('/{id}', response_model=str)
-def update_content(id: int, request: ProfileBase, db: Session = Depends(get_db),
+def update_profile(id: int, request: ProfileBase, db: Session = Depends(get_db),
                    current_user: UserBase = Depends(get_current_user)):
-    return db_profile.update_content(db, id, request)
+    return db_profile.update_profile(db, id, request)
 
 
 # Read all profiles
@@ -33,3 +33,9 @@ def update_content(id: int, request: ProfileBase, db: Session = Depends(get_db),
 def get_all_profiles(db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
     profiles = db_profile.get_all_profiles(db)
     return profiles
+
+
+# Read one profile
+@router.get('/{id}', response_model=ProfileDisplay)
+def get_profile(id: int, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+    return db_profile.get_profile(db, id)

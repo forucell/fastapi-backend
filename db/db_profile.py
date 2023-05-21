@@ -16,12 +16,12 @@ def create_profile(db: Session, request: ProfileBase, user_id: int):
     return new_profile
 
 
-def update_content(db: Session, id: int, request: ProfileBase):
-    content = db.query(DbProfile).filter(DbProfile.id == id)
-    if not content.first():
+def update_profile(db: Session, id: int, request: ProfileBase):
+    profile = db.query(DbProfile).filter(DbProfile.id == id)
+    if not profile.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'User with id {id} not found')
-    content.update({
+    profile.update({
         DbProfile.type: request.type
     })
     db.commit()
@@ -30,3 +30,11 @@ def update_content(db: Session, id: int, request: ProfileBase):
 
 def get_all_profiles(db: Session):
     return db.query(DbProfile).all()
+
+
+def get_profile(db: Session, id: int):
+    profile = db.query(DbProfile).filter(DbProfile.id == id).first()
+    if not profile:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f'Profile with id {id} not found')
+    return profile
