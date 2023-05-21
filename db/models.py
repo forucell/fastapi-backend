@@ -38,5 +38,5 @@ class DbProfile(DbBase):
 
     type = Column(Enum(ProfileType), default=ProfileType.BASIC)
 
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=True)
     user = relationship("DbUser", back_populates='profiles')

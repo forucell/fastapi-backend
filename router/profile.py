@@ -17,3 +17,10 @@ router = APIRouter(
 def create_profile(request: ProfileBase, db: Session = Depends(get_db),
                    current_user: UserBase = Depends(get_current_user)):
     return db_profile.create_profile(db, request, current_user.id)
+
+
+# Update profile
+@router.put('/{id}', response_model=str)
+def update_content(id: int, request: ProfileBase, db: Session = Depends(get_db),
+                   current_user: UserBase = Depends(get_current_user)):
+    return db_profile.update_content(db, id, request)
