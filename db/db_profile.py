@@ -26,3 +26,7 @@ def update_content(db: Session, id: int, request: ProfileBase):
     })
     db.commit()
     return '200'
+
+
+def get_all_profiles(db: Session):
+    return db.query(DbProfile).all()

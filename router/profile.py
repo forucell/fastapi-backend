@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -24,3 +26,10 @@ def create_profile(request: ProfileBase, db: Session = Depends(get_db),
 def update_content(id: int, request: ProfileBase, db: Session = Depends(get_db),
                    current_user: UserBase = Depends(get_current_user)):
     return db_profile.update_content(db, id, request)
+
+
+# Read all profiles
+@router.get('/', response_model=List[ProfileDisplay])
+def get_all_profiles(db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+    profiles = db_profile.get_all_profiles(db)
+    return profiles
