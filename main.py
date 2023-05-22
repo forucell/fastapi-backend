@@ -6,7 +6,7 @@ from db import models
 from db.database import engine
 from router import user, profile
 
-Base = declarative_base()
+# Base = declarative_base()
 app = FastAPI()
 
 
