@@ -46,3 +46,14 @@ class ProfileDisplay(ProfileBase):
 
     class Config:
         orm_mode = True
+
+
+class StudentBase(BaseModel):
+    name: str
+    email: EmailStr
+    age: int
+
+
+class StudentDisplay(StudentBase):
+    id: int
+    created_time: datetime

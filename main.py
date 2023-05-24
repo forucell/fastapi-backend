@@ -4,7 +4,7 @@ from sqlalchemy.orm import declarative_base
 from auth import authentication
 from db import models
 from db.database import engine
-from router import user, profile
+from router import user, profile, student
 
 # Base = declarative_base()
 app = FastAPI()
@@ -18,6 +18,7 @@ def on_startup():
 app.include_router(user.router)
 app.include_router(authentication.router)
 app.include_router(profile.router)
+app.include_router(student.router)
 
 
 @app.get('/hello')
