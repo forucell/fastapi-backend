@@ -40,3 +40,10 @@ class DbProfile(DbBase):
 
     user_id = Column(Integer, ForeignKey('user.id'), nullable=True)
     user = relationship("DbUser", back_populates='profiles')
+
+
+class DbStudent(DbBase):
+    __tablename__ = 'student'
+    name = Column(String)
+    email = Column(String)
+    age = Column(Integer)
